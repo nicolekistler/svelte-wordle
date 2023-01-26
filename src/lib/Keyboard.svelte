@@ -1,16 +1,68 @@
 <script>
+    import Notifications from 'svelte-notifications';
+
     import {
         currentRow,
         letterStream,
-        puzzleComplete
+        puzzleComplete,
+        solution
     } from "../stores";
-
+    
     const rows = [
       ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
       ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
       ['DEL', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'ENTER']
     ]
 
+    const checkWord = (word) => {
+
+        if (word.join('') === $solution) {
+            console.log('puzzle solved!')
+            // TODO: pop a notif
+            puzzleComplete.set(true);
+        } else {
+            word.forEach(function (key, i) {
+                let colorResult = 0;
+
+                const currentLetter = key.letter;
+                const isFullMatch = $solution[i] === currentLetter;
+                const isPartialMatch = $solution.includes(currentLetter);
+
+                if (isFullMatch) {
+                    colorResult = 1;
+                } else if (isPartialMatch) {
+                    colorResult = 2;
+                } else {
+                    colorResult = 3;
+                }
+
+                $letterStream[$currentRow][i].col = colorResult;
+            });
+        }
+    }
+
+    /**
+     * Handle when user initiates enter event
+     */
+    const handleEnter = () => {
+        const rowComplete = $letterStream[$currentRow].length === 5;
+
+        if (rowComplete) {
+            checkWord($letterStream[$currentRow])
+
+            if ($currentRow === 5) {
+                puzzleComplete.set(true);
+
+                return;
+            }
+
+            currentRow.update(currentRow => currentRow+1);
+        }
+    }
+
+    /**
+     * Handle when user initiates delete event
+     */
     const handleDelete = () => {
         if ($letterStream[$currentRow].length > 0) {
             letterStream.update(stream => {
@@ -18,18 +70,6 @@
 
                 return stream;
             })
-        }
-    }
-
-    const handleEnter = () => {
-        const rowComplete = $letterStream[$currentRow].length === 5;
-
-        if (rowComplete) {
-            currentRow.update(currentRow => currentRow+1);
-
-            if ($currentRow === 6) {
-                puzzleComplete.set(true);
-            }
         }
     }
 
@@ -46,7 +86,7 @@
 
         if ($letterStream[$currentRow].length < 5) {
             letterStream.update(stream => {
-                stream[$currentRow].push(clickedKey);
+                stream[$currentRow].push({letter: clickedKey, col: 0});
 
                 return stream;
             })

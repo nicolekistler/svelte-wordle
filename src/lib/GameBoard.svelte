@@ -14,13 +14,13 @@
 </script>
   
 <div class='board-container'>
-    {#each rows as _, rowIndex}
-        <div class={`row row-${rowIndex}`}>
-            <div class={`letter-box box`}>{rows[rowIndex][0] || ''}</div>
-            <div class={`letter-box box`}>{rows[rowIndex][1] || ''}</div>
-            <div class={`letter-box box`}>{rows[rowIndex][2] || ''}</div>
-            <div class={`letter-box box`}>{rows[rowIndex][3] || ''}</div>
-            <div class={`letter-box box`}>{rows[rowIndex][4] || ''}</div>
+    {#each rows as _, ind}
+        <div class={`row row-${ind}`}>
+            {#each Array(5) as _, i}
+                <div class={`letter-box box-${rows[ind][i]?.col || ''}`}>
+                        {rows[ind][i]?.letter || ''}
+                </div>
+            {/each}
         </div>
     {/each}
 </div>
@@ -50,6 +50,20 @@
         font-weight: 600;
         font-size: 1.5rem;
     }
+
+    .box-1 {
+        background-color: #42713E;
+    }
+
+    .box-2 {
+        background-color: #917F2F;
+        
+    }
+
+    .box-3 {
+        background-color: #2C3032;
+    }
+
 </style>
 
 <!-- wrong answer color: background-color: #3A3A3C; -->
