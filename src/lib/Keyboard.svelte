@@ -14,6 +14,10 @@
       ['DEL', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'ENTER']
     ]
 
+    /**
+     * Check if word matches solution
+     * @param word - word entered in row
+     */
     const checkWord = (word) => {
 
         if (word.join('') === $solution) {
@@ -73,6 +77,10 @@
         }
     }
 
+    /**
+     * Handle user keyboard clicks
+     * @param event - User input event
+     */
     const handleClick = (event) => {
         const clickedKey = event.target.getAttribute('data-key');
 
