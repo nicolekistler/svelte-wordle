@@ -1,6 +1,5 @@
 <script>
     import {
-        currentRow,
         letterStream,
         puzzleComplete
     } from "../stores";
@@ -65,5 +64,3 @@
     }
 
 </style>
-
-<!-- wrong answer color: background-color: #3A3A3C; -->
