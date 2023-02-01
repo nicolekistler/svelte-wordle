@@ -1,12 +1,10 @@
 <script>
-    import Notifications from 'svelte-notifications';
-
     import {
         currentRow,
         guesses,
         puzzleComplete,
         solution
-    } from "../stores";
+    } from '../stores';
     
     const rows = [
       ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
