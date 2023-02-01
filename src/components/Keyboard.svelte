@@ -3,7 +3,7 @@
 
     import {
         currentRow,
-        letterStream,
+        guesses,
         puzzleComplete,
         solution
     } from "../stores";
@@ -40,7 +40,7 @@
                     colorResult = 3;
                 }
 
-                $letterStream[$currentRow][i].col = colorResult;
+                $guesses[$currentRow][i].col = colorResult;
             });
         }
     }
@@ -49,10 +49,10 @@
      * Handle when user initiates enter event
      */
     const handleEnter = () => {
-        const rowComplete = $letterStream[$currentRow].length === 5;
+        const rowComplete = $guesses[$currentRow].length === 5;
 
         if (rowComplete) {
-            checkWord($letterStream[$currentRow])
+            checkWord($guesses[$currentRow])
 
             if ($currentRow === 5) {
                 puzzleComplete.set(true);
@@ -68,8 +68,8 @@
      * Handle when user initiates delete event
      */
     const handleDelete = () => {
-        if ($letterStream[$currentRow].length > 0) {
-            letterStream.update(stream => {
+        if ($guesses[$currentRow].length > 0) {
+            guesses.update(stream => {
                 stream[$currentRow].pop();
 
                 return stream;
@@ -92,8 +92,8 @@
 
         if (clickedKey === 'ENTER') return handleEnter()
 
-        if ($letterStream[$currentRow].length < 5) {
-            letterStream.update(stream => {
+        if ($guesses[$currentRow].length < 5) {
+            guesses.update(stream => {
                 stream[$currentRow].push({letter: clickedKey, col: 0});
 
                 return stream;

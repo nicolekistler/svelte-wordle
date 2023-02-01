@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const letterStream = writable([[], [], [], [], [], []]);
+export const guesses = writable([[], [], [], [], [], []]);
 
 export const currentRow = writable(0);
 

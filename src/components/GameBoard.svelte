@@ -1,12 +1,9 @@
 <script>
-    import {
-        letterStream,
-        puzzleComplete
-    } from "../stores";
+    import { guesses } from "../stores";
 
 	let rows = [[], [], [], [], [], []];
 
-	letterStream.subscribe(value => {
+	guesses.subscribe(value => {
 		rows = value;
 	});
 

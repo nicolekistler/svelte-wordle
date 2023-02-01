@@ -1,6 +1,6 @@
 <script>
-  import GameBoard from './lib/GameBoard.svelte';
-  import Keyboard from './lib/Keyboard.svelte';
+  import GameBoard from './components/GameBoard.svelte';
+  import Keyboard from './components/Keyboard.svelte';
   
 </script>
 
